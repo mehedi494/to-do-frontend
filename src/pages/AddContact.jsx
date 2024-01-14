@@ -32,15 +32,12 @@ const AddContact = () => {
   };
 
   return (
-    <div style={{margin:0,padding:0, overflow:"hidden"}}>
+    <div style={{margin:0,padding:0, overflow:"hidden", background:"#f0f0f0"}}>
       <Row justify="center"  align="middle" gutter={20} style={{
         height: "100vh",
       }}>
-    <Col  span={8}>
-      <Card title={<h3>Add your <span style={{
-        color:"orangered"
-      }
-      }>contact here..</span></h3>}  bordered={false} style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+    <Col  xs={24} sm={12} md={8} lg={6}>
+      <Card   bordered={false} style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
       <Form layout="vertical" {...formItemLayout} onFinish={handleSubmit(onSubmit)}>
       {/* Using Controller to integrate Ant Design Input with React Hook Form */}
       <Form.Item label="Name" rules={[
