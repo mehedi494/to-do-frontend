@@ -35,14 +35,15 @@ const Headers = () => {
       style={{
         padding: "0 40px",
         backgroundColor: "#fff",
+       maxWidth:"100%"
       }}>
       <div>
-        <p style={{ color: "gray", fontWeight: "bold" }}>Task</p>
+        <h2 style={{ color:'orangered', fontWeight: "bold" }}>Neutron</h2>
       </div>
       <Menu
         mode="horizontal"
         items={items}
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["0"]}
         style={{ width: "50%", justifyContent: "flex-end" }}></Menu>
     </Row>
   );
