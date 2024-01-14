@@ -1,6 +1,6 @@
 import { Button, Form, Input } from "antd";
 
-import { ContainerOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
+import { ContainerOutlined, LinkOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { Card, Col, Row } from 'antd';
 import { Controller, useForm } from "react-hook-form";
 import TextArea from "antd/es/input/TextArea";
@@ -36,7 +36,7 @@ const AddContact = () => {
       <Row justify="center"  align="middle" gutter={20} style={{
         height: "100vh",
       }}>
-    <Col  xs={24} sm={12} md={8} lg={6}>
+    <Col  xs={24} sm={12} md={8} lg={8}>
       <Card   bordered={false} style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
       <Form layout="vertical" {...formItemLayout} onFinish={handleSubmit(onSubmit)}>
       {/* Using Controller to integrate Ant Design Input with React Hook Form */}
@@ -68,6 +68,14 @@ const AddContact = () => {
           control={control}
           defaultValue=""
           render={({ field }) => <Input prefix={<PhoneOutlined />}  {...field} />}
+        />
+      </Form.Item>
+      <Form.Item label="Image URL ">
+        <Controller
+          name="img"
+          control={control}
+          defaultValue=""
+          render={({ field }) => <Input type="" prefix={<LinkOutlined />}  {...field} />}
         />
       </Form.Item>
       <Form.Item label="Address">
