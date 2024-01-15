@@ -1,11 +1,44 @@
-import { Button, Form, Input } from "antd";
-
-import { ContainerOutlined, LinkOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
-import { Card, Col, Row } from 'antd';
-import { Controller, useForm } from "react-hook-form";
+import {
+  ContainerOutlined,
+  LinkOutlined,
+  PhoneOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Button, Card, Col, Form, Input, Row, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import {  useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 const AddContact = () => {
-  const { handleSubmit, control,reset } = useForm();
+  // const [contact, setContact] = useState({});
+  const [error, setError] = useState("");
+
+  const handlePostRequest = async (data) => {
+    setError("")
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/add-contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Add any other headers as needed
+        },
+        body: JSON.stringify(data),
+      });
+
+      
+
+      const responseData = await response.json();
+      message.success('Contact added successfully');
+      if(responseData.code===11000){
+        setError("This phone is already exist")
+      }
+      console.log("POST request successful:", responseData);
+    } catch (error) {
+      setError(error);
+      console.error("Error during POST request:", error);
+    }
+  };
+
+  const { handleSubmit, control, reset } = useForm();
   const formItemLayout = {
     labelCol: {
       xs: {
@@ -28,79 +61,115 @@ const AddContact = () => {
   const onSubmit = (data) => {
     // Handle form submission logic here
     console.log(data);
-    reset()
+// setContact(data) 
+console.log(JSON.stringify(data));
+handlePostRequest(data)
+
+    // reset()
   };
+ 
 
   return (
-    <div style={{margin:0,padding:0, overflow:"hidden", background:"#f0f0f0"}}>
-      <Row justify="center"  align="middle" gutter={20} style={{
-        height: "100vh",
+    <div
+      style={{
+        margin: 0,
+        padding: 0,
+        overflow: "hidden",
+        background: "#f0f0f0",
       }}>
-    <Col  xs={24} sm={12} md={8} lg={8}>
-      <Card   bordered={false} style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
-      <Form layout="vertical" {...formItemLayout} onFinish={handleSubmit(onSubmit)}>
-      {/* Using Controller to integrate Ant Design Input with React Hook Form */}
-      <Form.Item label="Name" rules={[
-         
-        ]}>
+      <Row
+        justify="center"
+        align="middle"
+        gutter={20}
+        style={{
+          height: "100vh",
+        }}>
+        <Col xs={24} sm={12} md={8} lg={8}>
+          <Card
+            bordered={false}
+            style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
+            <Form
+              layout="vertical"
+              {...formItemLayout}
+              onFinish={handleSubmit(onSubmit)}>
+              {/* Using Controller to integrate Ant Design Input with React Hook Form */}
+              <Form.Item label="Name" required rules={[{required:true,message:"Name is required"}]}>
+                <Controller
+                  name="name"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <Input
+                      prefix={<UserOutlined />}
+                      style={{ width: "100%" }}
+                      {...field}
+                    />
+                  )}
+                />
+              </Form.Item>
 
-        <Controller
-        
-          name="name"
-          control={control}
-          defaultValue=""
-          render={({ field }) => <Input prefix={<UserOutlined/>} style={{width:"100%"}} {...field} />}
-        />
-      </Form.Item>
-
-      {/* Using Controller to integrate Ant Design Input with React Hook Form */}
-      <Form.Item label="Email">
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => <Input prefix={<ContainerOutlined />} type="email" {...field} />}
-        />
-      </Form.Item>
-      <Form.Item label="Phone">
-        <Controller
-          name="phone"
-          control={control}
-          defaultValue=""
-          render={({ field }) => <Input prefix={<PhoneOutlined />}  {...field} />}
-        />
-      </Form.Item>
-      <Form.Item label="Image URL ">
-        <Controller
-          name="img"
-          control={control}
-          defaultValue=""
-          render={({ field }) => <Input type="" prefix={<LinkOutlined />}  {...field} />}
-        />
-      </Form.Item>
-      <Form.Item label="Address">
-        <Controller
-          name="address"
-          control={control}
-          defaultValue=""
-          render={({ field }) => <TextArea  {...field} />}
-        />
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" style={{background:"orangered"}} htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-      </Card>
-    </Col>
-   
-  </Row>
+              {/* Using Controller to integrate Ant Design Input with React Hook Form */}
+              <Form.Item label="Email" >
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <Input
+                      prefix={<ContainerOutlined />}
+                      
+                      type="email"
+                      {...field}
+                    />
+                  )}
+                />
+              </Form.Item>
+              <Form.Item label="Phone">
+                <Controller
+                  name="phone"
+                  control={control}
+                  defaultValue=""
+                  required
+                  render={({ field }) => (
+                    <Input prefix={<PhoneOutlined />} {...field} />
+                  )}
+                />
+              </Form.Item>
+              <Form.Item label="Image URL " >
+                <Controller
+                  name="img"
+                  control={control}
+                  defaultValue=""
+                  
+                  render={({ field }) => (
+                    <Input type="" prefix={<LinkOutlined />} {...field} />
+                  )}
+                />
+              </Form.Item>
+              <Form.Item label="Address">
+                <Controller
+                  name="address"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => <TextArea {...field} />}
+                />
+              </Form.Item>
+             { error&&<p style={{color:"red"}}>{error.message}</p>}
+              <Form.Item>
+                <Button
+                  /* onClick={() => handlePostRequest()} */
+                  type="primary"
+                  style={{ background: "orangered" }}
+                  htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
     </div>
-   
   );
 };
-
 
 export default AddContact;
