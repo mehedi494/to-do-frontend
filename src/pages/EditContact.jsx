@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 
 import { ContainerOutlined, LinkOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { Card, Col, Row } from 'antd';
@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 const EditContact = () => {
 
-  const [data,setData]=useState("")
+  // const [data,setData]=useState("")
   const [contact,setContact]=useState("")
 
   const { id } = useParams();
@@ -22,7 +22,7 @@ const EditContact = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 // console.log(contact);
-  const handleUpdateRequest = async () => {
+  const handleUpdateRequest = async (data) => {
   try {
     const response = await fetch(`http://localhost:5000/api/v1/${id}`, {
       method: 'PATCH',
@@ -35,6 +35,7 @@ const EditContact = () => {
 
 
     const responseData = await response.json();
+    message.success('Contact updated successfully');
     console.log('POST request successful:', responseData);
   } catch (error) {
     console.error('Error during POST request:', error);
@@ -64,8 +65,9 @@ const EditContact = () => {
 
   const onSubmit = (data) => {
     // Handle form submission logic here
-    console.log(data);
-    setData(data)
+    // console.log(data);
+    
+    handleUpdateRequest(data)
     
     // reset()
   };
@@ -128,7 +130,7 @@ const EditContact = () => {
         </Form.Item>
   
         <Form.Item>
-          <Button onClick={()=>handleUpdateRequest()} type="primary" style={{background:"orangered"}} htmlType="submit">
+          <Button  type="primary" style={{background:"orangered"}} htmlType="submit">
             Update
           </Button>
         </Form.Item>

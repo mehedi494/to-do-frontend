@@ -6,16 +6,18 @@ import {
 } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import {  useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { config } from "../config";
 const AddContact = () => {
+  // const baseUrl=import.meta.env.VITE_BASE_URL
   // const [contact, setContact] = useState({});
   const [error, setError] = useState("");
 
   const handlePostRequest = async (data) => {
     setError("")
     try {
-      const response = await fetch("http://localhost:5000/api/v1/add-contact", {
+      const response = await fetch(`${config.baseUrl}/add-contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +67,7 @@ const AddContact = () => {
 console.log(JSON.stringify(data));
 handlePostRequest(data)
 
-    // reset()
+    reset()
   };
  
 
