@@ -13,14 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-
-
 body {
-  /* overflow: hidden; */
+  /* background-color:"#f0f0f0"; */
+  overflow: hidden;
   margin: 0;
- padding: 0;
-  
+  padding: 0;
+
   min-width: 320px;
   min-height: 100vh;
 }
@@ -47,7 +45,7 @@ body {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-} 
+}
 
 /* @media (prefers-color-scheme: light) {
   :root {
