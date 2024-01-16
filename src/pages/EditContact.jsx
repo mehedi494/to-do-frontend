@@ -6,6 +6,7 @@ import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
+import { config } from "../config";
 
 const EditContact = () => {
 
