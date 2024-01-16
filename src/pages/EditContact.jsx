@@ -15,7 +15,7 @@ const EditContact = () => {
   const { id } = useParams();
   
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/${id}`)
+    fetch(`${config.baseUrl}/${id}`)
     .then(response => response.json())
     .then(data => setContact(data))
     .catch(error => console.error('Error:', error));
@@ -24,7 +24,7 @@ const EditContact = () => {
 // console.log(contact);
   const handleUpdateRequest = async (data) => {
   try {
-    const response = await fetch(`http://localhost:5000/api/v1/${id}`, {
+    const response = await fetch(`${config.baseUrl}/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
