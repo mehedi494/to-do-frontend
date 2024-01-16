@@ -15,7 +15,7 @@ const AddContact = () => {
   const [error, setError] = useState("");
 
   const handlePostRequest = async (data) => {
-    setError("")
+    setError("");
     try {
       const response = await fetch(`${config.baseUrl}/add-contact`, {
         method: "POST",
@@ -26,14 +26,18 @@ const AddContact = () => {
         body: JSON.stringify(data),
       });
 
-      
-
       const responseData = await response.json();
-      message.success('Contact added successfully');
-      if(responseData.code===11000){
-        setError("This phone is already exist")
+      console.log(responseData);
+      if (responseData.errors&&responseData.name) {
+        console.log(responseData.name);
+        message.error("something went wrong");
+        setError("fill the required field");
+      } else if (responseData.code === 11000) {
+        setError("This Phone number already exist");
+      } else {
+        message.success("Contact added successfully");
+        console.log("POST request successful:", responseData);
       }
-      console.log("POST request successful:", responseData);
     } catch (error) {
       setError(error);
       console.error("Error during POST request:", error);
@@ -63,13 +67,12 @@ const AddContact = () => {
   const onSubmit = (data) => {
     // Handle form submission logic here
     console.log(data);
-// setContact(data) 
-console.log(JSON.stringify(data));
-handlePostRequest(data)
+    // setContact(data)
+    console.log(JSON.stringify(data));
+    handlePostRequest(data);
 
-    reset()
+    reset();
   };
- 
 
   return (
     <div
@@ -95,7 +98,10 @@ handlePostRequest(data)
               {...formItemLayout}
               onFinish={handleSubmit(onSubmit)}>
               {/* Using Controller to integrate Ant Design Input with React Hook Form */}
-              <Form.Item label="Name" required rules={[{required:true,message:"Name is required"}]}>
+              <Form.Item
+                label="Name"
+                required
+                rules={[{ required: true, message: "Name is required" }]}>
                 <Controller
                   name="name"
                   control={control}
@@ -111,7 +117,7 @@ handlePostRequest(data)
               </Form.Item>
 
               {/* Using Controller to integrate Ant Design Input with React Hook Form */}
-              <Form.Item label="Email" >
+              <Form.Item label="Email">
                 <Controller
                   name="email"
                   control={control}
@@ -119,14 +125,13 @@ handlePostRequest(data)
                   render={({ field }) => (
                     <Input
                       prefix={<ContainerOutlined />}
-                      
                       type="email"
                       {...field}
                     />
                   )}
                 />
               </Form.Item>
-              <Form.Item label="Phone">
+              <Form.Item label="Phone" required>
                 <Controller
                   name="phone"
                   control={control}
@@ -137,18 +142,17 @@ handlePostRequest(data)
                   )}
                 />
               </Form.Item>
-              <Form.Item label="Image URL " >
+              <Form.Item label="Image URL" required>
                 <Controller
                   name="img"
                   control={control}
                   defaultValue=""
-                  
                   render={({ field }) => (
                     <Input type="" prefix={<LinkOutlined />} {...field} />
                   )}
                 />
               </Form.Item>
-              <Form.Item label="Address">
+              <Form.Item label="Address" required>
                 <Controller
                   name="address"
                   control={control}
@@ -156,7 +160,7 @@ handlePostRequest(data)
                   render={({ field }) => <TextArea {...field} />}
                 />
               </Form.Item>
-             { error&&<p style={{color:"red"}}>{error.message}</p>}
+              {error && <p style={{ color: "red" }}>{error}</p>}
               <Form.Item>
                 <Button
                   /* onClick={() => handlePostRequest()} */

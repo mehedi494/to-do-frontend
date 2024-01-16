@@ -2,12 +2,13 @@ import {
   ContainerOutlined,
   DeleteOutlined,
   EditOutlined,
+  HeartFilled,
   HeartOutlined,
   HomeOutlined,
   PhoneOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Col, Popconfirm, Row, Spin, message } from "antd";
+import { Col, Popconfirm, Row, Spin, message } from "antd";
 import Card from "antd/es/card/Card";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -65,6 +66,7 @@ const AllContacts = () => {
               <Card
                 style={{
                   width: 300,
+                 
                 }}
                 actions={[
                   <Popconfirm key="popup"
@@ -78,11 +80,12 @@ const AllContacts = () => {
                   <Link key="edit" to={`/edit-contact/${item._id}`}>
                     <EditOutlined />
                   </Link>,
-                  <HeartOutlined key="fav" />,
+                 <HeartFilled key="fav"/>,
                 ]}>
-                <Row justify="" align="middle" style={{ padding: "2px" }}>
-                  <Avatar
-                    style={{ border: "1px orangered solid" }}
+                <div  style={{ width:"" }}>
+                <div style={{display:"flex",justifyContent:"center" , }}>
+                <img
+                    style={{width:"50%", borderRadius:"50%",  }}
                     size="large"
                     src={
                       item.img
@@ -90,22 +93,23 @@ const AllContacts = () => {
                         : "https://xsgames.co/randomusers/avatar.php?g=pixel"
                     }
                   />
-                  <div style={{ marginLeft: "20px" }}>
+                </div>
+                  <div style={{ marginLeft: "20px", }}>
                     <h4 style={{ margin: "0" }}>
-                      <UserOutlined /> {item.name}
+                      <UserOutlined style={{ paddingRight: "5px" }}/> {item.name}
                     </h4>
                     <p style={{ margin: "0" }}>
-                      <ContainerOutlined /> {item.email}
+                      <ContainerOutlined style={{ paddingRight: "5px" }} /> {item.email}
                     </p>
                     <p style={{ margin: "0" }}>
-                      <PhoneOutlined /> {item.phone}
+                      <PhoneOutlined style={{ paddingRight: "5px" }}/> {item.phone}
                     </p>
                     <p style={{ margin: "0" }}>
-                      <HomeOutlined />
+                      <HomeOutlined style={{ paddingRight: "6px" }}/>
                       {item.address}
                     </p>
                   </div>
-                </Row>
+                </div>
               </Card>
             </Col>
           ))
