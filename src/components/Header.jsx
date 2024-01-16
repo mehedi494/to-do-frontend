@@ -38,7 +38,7 @@ const Headers = () => {
        maxWidth:"100%"
       }}>
       <div>
-        <Link to="/"><h2  style={{ color:'orangered', fontWeight: "bold" }}>Neutron</h2></Link>
+        <Link to="/"><span  style={{ color:'orangered', fontWeight: "bold" }}>Neutron</span></Link>
       </div>
       <Menu
         mode="horizontal"
