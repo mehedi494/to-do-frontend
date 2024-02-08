@@ -1,3 +1,4 @@
+import AllContacts from "./AllContacts";
 
 
 const Home = () => {
@@ -10,7 +11,8 @@ const Home = () => {
       height:"100vh",
       backgroundColor:"#f0f0f0"
     }}>
-      <h1>Welcome To <span style={{color:'orangered'}}> Neutron LandingPage</span></h1>
+      {/* <h1>Welcome To <span style={{color:'orangered'}}> Neutron LandingPage</span></h1> */}
+      <AllContacts></AllContacts>
     </div>
   );
 };

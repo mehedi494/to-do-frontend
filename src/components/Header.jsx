@@ -33,7 +33,7 @@ const Headers = () => {
       justify="space-between"
       align="middle"
       style={{
-        padding: "0 40px",
+        padding: "20px 40px",
         backgroundColor: "#fff",
        maxWidth:"100%"
       }}>
