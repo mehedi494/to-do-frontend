@@ -1,8 +1,8 @@
 #Todo Apps Frontend 
 ## _Project using technology
--reactjs
--react-router-dom
--antdesign
+*reactjs
+*react-router-dom
+*antdesign
 
 #routes-
 - /
