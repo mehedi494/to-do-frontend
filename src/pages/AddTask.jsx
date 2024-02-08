@@ -13,7 +13,7 @@ const AddTask = () => {
   const handlePostRequest = async (data) => {
     setError("");
     try {
-      const response = await fetch(`${config.baseUrl}/add-contact`, {
+      const response = await fetch(`${config.baseUrl}/add-task`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const AddTask = () => {
         margin: 0,
         padding: 0,
         overflow: "hidden",
-        background: "#f0f0f0",
+        
       }}>
       <Row
         justify="center"

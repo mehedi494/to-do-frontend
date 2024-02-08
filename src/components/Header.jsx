@@ -1,9 +1,8 @@
 import {
   ContactsOutlined,
-  UserAddOutlined,
-  UserOutlined,
+  UserAddOutlined
 } from "@ant-design/icons";
-import { Avatar, Menu, Row } from "antd";
+import { Menu, Row } from "antd";
 import { Link } from "react-router-dom";
 
 const Headers = () => {
@@ -12,21 +11,21 @@ const Headers = () => {
       key: "1",
       label: (
         <Link to="/add-contact">
-          Add Contacts <UserAddOutlined />
+          Add todo <UserAddOutlined />
         </Link>
       ),
     },
     {
       key: "2",
       label: (
-        <Link to="/all-contact">
-          All Contacts <ContactsOutlined />
+        <Link to="/">
+          Tasks <ContactsOutlined />
         </Link>
       ),
     },
-    {
-      label: <Avatar shape="circle" size="default" icon={<UserOutlined />} />,
-    },
+    // {
+    //   label: <Avatar shape="circle" size="default" icon={<UserOutlined />} />,
+    // },
   ];
   return (
     <Row
@@ -38,7 +37,7 @@ const Headers = () => {
        maxWidth:"100%"
       }}>
       <div>
-        <Link to="/"><span  style={{ color:'orangered', fontWeight: "bold" }}>Neutron</span></Link>
+        <Link to="/"><span  style={{fontSize:"20px", color:'orangered', fontWeight: "bold" }}>To-do app</span></Link>
       </div>
       <Menu
         mode="horizontal"

@@ -122,7 +122,7 @@ const AllTask = () => {
         <div
           style={{
             maxWidth: "100%",
-            backgroundColor: "#f0f0f0",
+         
             padding: "20px 40px",
             height: "100vh",
             msOverflowX: "hidden",
