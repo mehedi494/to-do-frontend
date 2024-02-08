@@ -1,7 +1,5 @@
 import {
-  ContainerOutlined,
-  LinkOutlined,
-  PhoneOutlined,
+ 
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, message } from "antd";
@@ -9,9 +7,7 @@ import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { config } from "../config";
-const AddContact = () => {
-  // const baseUrl=import.meta.env.VITE_BASE_URL
-  // const [contact, setContact] = useState({});
+const AddTask = () => {
   const [error, setError] = useState("");
 
   const handlePostRequest = async (data) => {
@@ -28,15 +24,15 @@ const AddContact = () => {
 
       const responseData = await response.json();
       console.log(responseData);
-      if (responseData.errors&&responseData.name) {
+      if (responseData.errors && responseData.name) {
         console.log(responseData.name);
-        message.error("something went wrong");
-        setError("fill the required field");
-      } else if (responseData.code === 11000) {
+        message.error("internal server error");
+        setError("Task name is required");
+      } /* else if (responseData.code === 11000) {
         setError("This Phone number already exist");
-      } else {
-        message.success("Contact added successfully");
-        console.log("POST request successful:", responseData);
+      } */ else {
+        message.success("Task added successfully");
+        // console.log("POST request successful:", responseData);
       }
     } catch (error) {
       setError(error);
@@ -99,11 +95,11 @@ const AddContact = () => {
               onFinish={handleSubmit(onSubmit)}>
               {/* Using Controller to integrate Ant Design Input with React Hook Form */}
               <Form.Item
-                label="Name"
+                label="Task Name"
                 required
                 rules={[{ required: true, message: "Name is required" }]}>
                 <Controller
-                  name="name"
+                  name="taskName"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
@@ -117,44 +113,10 @@ const AddContact = () => {
               </Form.Item>
 
               {/* Using Controller to integrate Ant Design Input with React Hook Form */}
-              <Form.Item label="Email">
+
+              <Form.Item label="Description">
                 <Controller
-                  name="email"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <Input
-                      prefix={<ContainerOutlined />}
-                      type="email"
-                      {...field}
-                    />
-                  )}
-                />
-              </Form.Item>
-              <Form.Item label="Phone" required>
-                <Controller
-                  name="phone"
-                  control={control}
-                  defaultValue=""
-                  required
-                  render={({ field }) => (
-                    <Input prefix={<PhoneOutlined />} {...field} />
-                  )}
-                />
-              </Form.Item>
-              <Form.Item label="Image URL" required>
-                <Controller
-                  name="img"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <Input type="" prefix={<LinkOutlined />} {...field} />
-                  )}
-                />
-              </Form.Item>
-              <Form.Item label="Address" required>
-                <Controller
-                  name="address"
+                  name="description"
                   control={control}
                   defaultValue=""
                   render={({ field }) => <TextArea {...field} />}
@@ -165,9 +127,9 @@ const AddContact = () => {
                 <Button
                   /* onClick={() => handlePostRequest()} */
                   type="primary"
-                  style={{ background: "orangered" }}
+                  style={{ background: "green",width: "100%"}}
                   htmlType="submit">
-                  Submit
+                  ADD TASK
                 </Button>
               </Form.Item>
             </Form>
@@ -178,4 +140,4 @@ const AddContact = () => {
   );
 };
 
-export default AddContact;
+export default AddTask;

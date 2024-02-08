@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 
-import { ContainerOutlined, LinkOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import { Card, Col, Row } from 'antd';
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
@@ -8,17 +8,17 @@ import { Controller, useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 import { config } from "../config";
 
-const EditContact = () => {
+const EditTask = () => {
 
   // const [data,setData]=useState("")
-  const [contact,setContact]=useState("")
+  const [task,setTask]=useState("")
 
   const { id } = useParams();
   
   useEffect(() => {
     fetch(`${config.baseUrl}/${id}`)
     .then(response => response.json())
-    .then(data => setContact(data))
+    .then(data => setTask(data))
     .catch(error => console.error('Error:', error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -66,7 +66,7 @@ const EditContact = () => {
 
   const onSubmit = (data) => {
     // Handle form submission logic here
-    // console.log(data);
+    console.log(data);
     
     handleUpdateRequest(data)
     
@@ -76,56 +76,45 @@ const EditContact = () => {
   return (
     <div style={{margin:0,padding:0, overflow:"hidden", background:"#f0f0f0"}}>
       {
-        contact&&<Row justify="center"  align="middle" gutter={20} style={{
+        task&&<Row justify="center"  align="middle" gutter={20} style={{
           height: "100vh",
         }}>
       <Col  xs={24} sm={12} md={8} lg={8}>
         <Card   bordered={false} style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
         <Form layout="vertical" {...formItemLayout} onFinish={handleSubmit(onSubmit)}>
         {/* Using Controller to integrate Ant Design Input with React Hook Form */}
-        <Form.Item label="Name" rules={[
-           
-          ]}>
-  
-          <Controller
-          
-            name="name"
-            control={control}
-            defaultValue={contact.name}
-            render={({ field }) => <Input  prefix={<UserOutlined/>} style={{width:"100%"}} {...field} />}
-          />
-        </Form.Item>
+        
   
         {/* Using Controller to integrate Ant Design Input with React Hook Form */}
-        <Form.Item label="Email">
+       {/*  <Form.Item label="Email">
           <Controller
             name="email"
             control={control}
             defaultValue={contact.email}
             render={({ field }) => <Input  prefix={<ContainerOutlined />} type="email" {...field} />}
           />
-        </Form.Item>
-        <Form.Item label="Phone">
+        </Form.Item> */}
+       {/*  <Form.Item label="Phone">
           <Controller
             name="phone"
             control={control}
             defaultValue={contact.phone}
             render={({ field }) => <Input  prefix={<PhoneOutlined />}  {...field} />}
           />
-        </Form.Item>
-        <Form.Item label="Image URL ">
+        </Form.Item> */}
+        <Form.Item label="Task name ">
           <Controller
-            name="img"
+            name="taskName"
             control={control}
-            defaultValue={contact.img}
+            defaultValue={task.taskName}
             render={({ field }) => <Input dprefix={<LinkOutlined />}  {...field} />}
           />
         </Form.Item>
-        <Form.Item label="Address">
+        <Form.Item label="Task description">
           <Controller
-            name="address"
+            name="description"
             control={control}
-            defaultValue={contact.address}
+            defaultValue={task.description}
             render={({ field }) => <TextArea   {...field} />}
           />
         </Form.Item>
@@ -147,4 +136,4 @@ const EditContact = () => {
 };
 
 
-export default EditContact;
+export default EditTask;
