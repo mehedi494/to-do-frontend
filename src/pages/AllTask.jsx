@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Col, Popconfirm, Row, Select, Spin, message } from "antd";
+import { Col, Popconfirm, Row, Select, message } from "antd";
 import Card from "antd/es/card/Card";
 import { Option } from "antd/es/mentions";
 import { useEffect, useState } from "react";
@@ -11,9 +11,7 @@ const AllTask = () => {
   const [tasks, setData] = useState([]);
 
   const handlePriorityChange = (value, id) => {
-    console.log(value, id);
-
-  
+   
     task.priority = value;
     const update = async () => {
       // console.log(`${config.baseUrl}/${id}`);
@@ -116,21 +114,22 @@ const AllTask = () => {
 
   return (
     <>
-      {!tasks ? (
-        <div>Loading...</div>
+      {!tasks.length ? (
+        <div><h3 style={{color:"gray"}}>empty  list</h3></div>
       ) : (
         <div
           style={{
             maxWidth: "100%",
          
-            padding: "20px 40px",
+            // padding: "20px 40px",
             height: "100vh",
             msOverflowX: "hidden",
           }}>
-          <Row gutter={[1, 10]} style={{}}>
-            {tasks.length ? (
+          <Row key={task} gutter={[24, 24]}    style={{}}>
+            { (
               tasks.map((item) => (
-                <Col key={item.index} xs={24} sm={12} md={12} lg={8} xl={8}>
+                <Col key={item.index}   
+                >
                   <Card
                     style={{
                       width: 400,
@@ -230,18 +229,8 @@ const AllTask = () => {
                   </Card>
                 </Col>
               ))
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  height: "100vh",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}>
-                <Spin size="large" />
-              </div>
-            )}
+            ) 
+            }
           </Row>
         </div>
       )}
