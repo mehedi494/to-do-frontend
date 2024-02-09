@@ -125,6 +125,8 @@ const AllTask = () => {
             height: "100vh",
             msOverflowX: "hidden",
           }}>
+
+           <div style={{display:"flex", justifyContent:"end",padding:"20px",}}><span style={{backgroundColor:"#D9EDBF",padding:"10px",borderRadius:'5px'}}>Total-task {tasks.length}</span></div>
           <Row key={task} gutter={[24, 24]}    style={{}}>
             { (
               tasks.map((item) => (
